@@ -113,3 +113,13 @@ def hyper_tuner(dataframe, params):
 
     best_param = all_params[np.argmin(tuning_results['performance index'])]
     return best_param
+
+# Export the data to a .csv file.
+def export_data(forecast):
+    os.chdir('..')
+    os.chdir('exports')
+    exp = forecast[forecast['fact'].isnull()][['ds','yhat']].rename(columns={'ds':'date','yhat':'quantity'})
+    exp['year'] = pd.to_datetime(exp['date']).dt.year
+    exp['month'] = pd.to_datetime(exp['date']).dt.month
+    exp.drop(columns=['date'],inplace=True)
+    exp[['year','month','quantity']].to_csv('data_forecast.csv', index=False, sep=';', decimal=',')
