@@ -3,7 +3,6 @@
 Hello, this is my final project where i tackle the problem of forecasting medicine quantity.
 The problem is to forecast monthly data using Facebook Prophet and provide the business with a way to export the forecast.
 
-
 - [Mikas Šimoliūnas Code Academy CADS final project](#mikas-šimoliūnas-code-academy-cads-final-project)
   - [Installation](#installation)
   - [EDA](#eda)
@@ -11,17 +10,17 @@ The problem is to forecast monthly data using Facebook Prophet and provide the b
   - [Overview](#overview)
     - [data](#data)
     - [modules](#modules)
-    - [nb\_eda](#nb_eda)
+    - [nb_eda](#nb_eda)
     - [Main.ipynb](#mainipynb)
   - [forecaster module methods](#forecaster-module-methods)
-    - [retrieve\_data()](#retrieve_data)
-    - [fit\_predict\_model(\*params):](#fit_predict_modelparams)
-    - [plot\_prediction(model, forecast)](#plot_predictionmodel-forecast)
-    - [detect\_anomalies(forecast)](#detect_anomaliesforecast)
-    - [remove\_anomalies(dataframe, forecast)](#remove_anomaliesdataframe-forecast)
-    - [evaluate\_model(model)](#evaluate_modelmodel)
-    - [hyper\_tuner(dataframe,params)](#hyper_tunerdataframeparams)
-
+    - [retrieve_data()](#retrieve_data)
+    - [fit_predict_model(\*params):](#fit_predict_modelparams)
+    - [plot_prediction(model, forecast)](#plot_predictionmodel-forecast)
+    - [detect_anomalies(forecast)](#detect_anomaliesforecast)
+    - [remove_anomalies(dataframe, forecast)](#remove_anomaliesdataframe-forecast)
+    - [evaluate_model(model)](#evaluate_modelmodel)
+    - [hyper_tuner(dataframe,params)](#hyper_tunerdataframeparams)
+    - [export_data(forecast)](#export_dataforecast)
 
 ## Installation
 
@@ -93,8 +92,10 @@ It's the module that uses functions written in both EDA and hyper tuner stored i
 
 - returns pandas dataframe with transformed data.
 
-### fit_predict_model(*params):
+### fit_predict_model(\*params):
+
 `fit_predict_model(dataframe, changepoint_prior_scale, seasonality_prior_scale, changepoint_range, periods)`
+
 - Expects at least a dataframe and can run on default values and provide a decent forecast.
 - The features are explained in more detail and can be found at [facebook.github.io/prophet](https://facebook.github.io/prophet/docs/trend_changepoints.html)
 
@@ -156,3 +157,8 @@ Returns: Dict-like output of the best parameters.<br>
 best = fc.hyper_tuner(data, params)
 forecast, model = fc.fit_predict_model(data, *best.values())
 ```
+
+### export_data(forecast)
+
+- Expects Prophet forecast dataframe since the export relies on the `fact` column argument.
+  Exports the forecasted data to `exports` folder as a `.csv` file.
