@@ -53,8 +53,8 @@ def fit_predict_model(
     return forecast, m
 
 # Plot predictions.
-def plot_prediction(model, prediction):
-    model.plot(prediction)
+def plot_prediction(model, forecast):
+    model.plot(forecast)
 
 # anomalous data detection function. Works on prophet confidence intervals.
 def detect_anomalies(forecast):
